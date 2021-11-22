@@ -26,15 +26,26 @@ if (!window.__POWERED_BY_QIANKUN__) {
  * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
  */
 export async function bootstrap(props) {
-  console.log("[react17] react app bootstraped", props.onLoading);
+  // console.log("[react17] react app bootstraped", props);
 }
 
 /**
  * 应用每次进入都会调用 mount 方法，通常我们在这里触发应用的渲染方法
  */
 export async function mount(props) {
-  console.log("[react17] props from main framework", props.onLoading);
+  // console.log("[react17] props from main framework", props);
   render(props);
+
+  // 获取主应用中传递的全局参数
+  props.onGlobalStateChange((state, prev) => {
+    console.log("主应用: 变更前");
+    console.log(prev);
+    console.log("主应用: 变更后");
+    console.log(state);
+  });
+
+  // 更改主应用中传递的全局参数
+  props.setGlobalState({ name: "sub-react" });
 }
 
 /**
